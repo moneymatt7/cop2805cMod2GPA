@@ -8,8 +8,10 @@ package edu.fscj.cop2805c.appointment;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
-enum PREFCONTACT {NONE, TEXT, EMAIL}
+// enum to represent preferred methods of contact
+enum PREFCONTACT {NONE, TEXT, EMAIL, PHONE}
 
+// class representing an individual contact
 class Contact {
 
     private StringBuilder name;
@@ -18,12 +20,14 @@ class Contact {
     private PREFCONTACT contactPref;
     private ZoneId timeZone;
 
+    // accessors
     public StringBuilder getName() {return name;}
     public String getEmail() {return email;}
     public String getPhone() {return phone;}
     public String getContactPref() {return contactPref.toString();}
     public ZoneId getTimeZone() {return timeZone;}
 
+    // mutators
     public void setName(StringBuilder name) {this.name = name;}
     public void setEmail(String email) {this.email = email;}
     public void setPhone(String phone) {this.phone = phone;}
@@ -31,6 +35,7 @@ class Contact {
         this.contactPref =contactPref;
     }
 
+    // overloaded constructor to create individual contact
     public Contact(String fName, String lName, String email, String phone,
                    PREFCONTACT contactPref, ZoneId timeZone) {
         this.name = new StringBuilder();
@@ -58,12 +63,16 @@ public class Appointment {
     private ZonedDateTime apptRemind;
     private int reminder;
 
+    // accessors
+    public String getTitle() {return title;}
+    public String getDesc() {return desc;}
+    public ZonedDateTime getApptTime() {return apptTime;}
+    public int getReminder(){return reminder;}
+
+    // mutators
     public void setTitle(String title){this.title = title;}
-
     public void setDesc(String desc){this.desc = desc;}
-
     public void setApptTime(ZonedDateTime apptTime){this.apptTime = apptTime;}
-
     public void setReminder(int reminder){this.reminder = reminder;}
     public Appointment(String title, String desc, Contact contact,
                        ZonedDateTime apptTime, int reminder) {
@@ -71,6 +80,7 @@ public class Appointment {
         this.desc = desc;
         this.contact = contact;
         this.apptTime = apptTime;
+        this.reminder = reminder;
         this.apptRemind = apptTime.minusHours(reminder);
     }
 
@@ -88,11 +98,11 @@ public class Appointment {
 
     public static void main(String[] args) {
 
-
-
+        // construct test Contact object
         Contact contact1 = new Contact("Ash", "Williams", "Ash@sMart.com",
-                "555-555-555", PREFCONTACT.NONE, ZoneId.systemDefault());
+                "555-555-555", PREFCONTACT.PHONE, ZoneId.systemDefault());
 
+        // construct test Appointment object
         Appointment appt1 = new Appointment("Fight Skeleton Army",
                 "Get sucked back to 1300AD and fail to follow instructions ",
                 contact1, ZonedDateTime.of(2023, 6, 7, 12,
